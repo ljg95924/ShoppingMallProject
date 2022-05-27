@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -134,19 +134,23 @@ div {
 				<div class="button">
 					<div class="button_quantity">
 						주문수량
-						<input type="text" value="1">
+						<input type="text" class="quantity_input" value="1">
 						<span>
-							<button>+</button>
-							<button>-</button>
+							<button class="plus_btn">+</button>
+							<button class="minus_btn">-</button>
 						</span>
 					</div>
 				</div>
 				<div class="pageNew_btn">
 					<div class="pageNew_goodsBtn03 w180" id="addCart" onmousedown="">
-						장바구니
+						<a class="btn_cart">
+							장바구니
+						</a>
 					</div>
 					<div class="pageNew_goodsBtn02 w180" id="buy" onmousedown="markektingLog();">
-						바로구매
+						<a class="btn_buy">
+							바로구매					
+						</a>
 					</div>
 				</div>
 			</form>
@@ -162,5 +166,44 @@ div {
 			</div>
 		</div>
 	</div>
+	<script>
+		let quantity = $(".quantity_input").val();
+		$(".plus_btn").on("click", function(){
+			$(".quantity_input").val(++quantity);
+		});
+		$(".minus_btn").on("click", function(){
+			if(quantity>1){
+/* 				$(".quantity_input").val(--quantity);		 */		
+			}
+		});
+		// 서버로 보낼 데이터
+		const form ={
+				//memberId : '${member.member_id}'
+				product_Id : '${product.product_id}',
+				product_quantity : '0'
+		}
+		
+		// 장바구니 추가 버튼
+		$(".btn_cart").on("click", function(e){
+			form.product_quantity = $(".quantity_input").val();
+			$.ajax({
+				url: 'bio11/basket/addBasket',
+				type: 'POST',
+				data: form,
+				success: function(result){
+					if(result == '0'){
+						alert("장바구니에 추가를 하지 못하였습니다.");
+					} else if(result == '1'){
+						alert("장바구니에 추가되었습니다.");
+					}/*  else if(result == '2'){
+						alert("장바구니에 이미 추가되어져 있습니다."); */
+					} else if(result == '5'){
+						alert("로그인이 필요합니다.");	
+					}
+				}
+			
+			});
+		})
+	</script>
 </body>
 </html>

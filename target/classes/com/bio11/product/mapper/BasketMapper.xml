@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bio11.product.mapper.BasketMapper">
+	<insert id="addBasket">
+		INSERT INTO basket(cart_id, user_id, product_id, product_quantity)
+		VALUES(#{cart_id}, #{user_id}, #{product_id}, #{product_quantity})	
+	</insert>
+</mapper>

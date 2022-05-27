@@ -1,5 +1,6 @@
 package com.bio11.product.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/product/*")
 @AllArgsConstructor
 public class ProductController {
+	@Autowired
 	private ProductService service;
 	
 	@GetMapping("/list")
@@ -26,7 +28,6 @@ public class ProductController {
 		log.info("list");
 		model.addAttribute("list", service.getList());
 	}
-	
 	
 	@PostMapping("/modify")
 	public String get(ProductVO board, RedirectAttributes rttr) {
