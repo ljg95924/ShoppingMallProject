@@ -15,13 +15,13 @@ import lombok.extern.log4j.Log4j;
 @Service
 @AllArgsConstructor
 public class BasketServiceImpl implements BasketService{
-	@Autowired
+	//@Autowired
 	private BasketMapper mapper;
 	@Override
 	public int addBasket(BasketVO basket) {
 		// TODO Auto-generated method stub
-		BasketVO checkBasket = mapper.checkBasket(basket);
 		log.info("addBasket: " + basket);
+		BasketVO checkBasket = mapper.checkBasket(basket);
 		if(checkBasket != null) {
 			return 2;
 		}

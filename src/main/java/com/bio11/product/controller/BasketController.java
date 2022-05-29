@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/basket")
+@RequestMapping("/basket/*")
 @AllArgsConstructor
 public class BasketController {
 	@Autowired
@@ -27,7 +27,7 @@ public class BasketController {
 	@ResponseBody
 	public String addBasket(BasketVO basket, HttpServletRequest request) {
 		
-
+		log.info("Controller Basket : " + basket);
 		HttpSession session = request.getSession();
 		/*// 로그인 체크
 		 * MemberVO mvo = (MemberVO)session.getAttribute("member"); if(mvo == null) {

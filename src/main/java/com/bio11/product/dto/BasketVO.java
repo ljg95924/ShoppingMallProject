@@ -8,4 +8,8 @@ public class BasketVO {
 	private String user_id;
 	private int product_id;
 	private int product_quantity;
+	
+	private String product_name;
+	private int product_price;
+	private int totalPrice;
 }
