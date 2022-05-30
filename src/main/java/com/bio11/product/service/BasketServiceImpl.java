@@ -47,7 +47,9 @@ public class BasketServiceImpl implements BasketService{
 	@Override
 	public List<BasketVO> getBasketList(String user_id) {
 		// TODO Auto-generated method stub
-		return null;
+		List<BasketVO> basket = mapper.getBasket(user_id);
+		
+		return basket;
 	}
 
 	@Override

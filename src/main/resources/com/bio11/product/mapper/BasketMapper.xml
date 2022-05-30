@@ -8,15 +8,15 @@
 	</insert>
 	
 	<delete id="deleteBasket">
-		delete from basket where cart_id = #{cartId}
+		delete from basket where cart_id = #{cart_isd}
 	</delete>
 	
 	<update id="modifyCount">
-		update basket set product_quantity=#{product_quantity} where cartId = #{cartId}
+		update basket set product_quantity=#{product_quantity} where cart_id = #{cart_id}
 	</update>
 	
 	<select id="getBasket" resultType="com.bio11.product.dto.BasketVO">
-		select a.cartId, a.user_id, a.product_id, a.product_quantity, b.product_name, b.product_price
+		select a.cart_Id, a.user_id, a.product_id, a.product_quantity, b.product_name, b.product_price
 		from basket a left outer join product b on a.product_id = b.product_id
 		where user_id = #{user_id}
 	</select>

@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%>
 	<title>Product Detail</title>
 <!-- <link rel="stylesheet" href="css/productDetail.css"> -->
 <style>
- html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+ html, button, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
  {
     margin: 0;
     padding: 0;
@@ -142,12 +142,12 @@ div {
 					</div>
 				</div>
 				<div class="pageNew_btn">
-					<div class="pageNew_goodsBtn03 w180" id="addCart" onmousedown="">
+					<div class="pageNew_goodsBtn03 w180" id="addCart">
 						<a class="btn_cart">
 							장바구니
 						</a>
 					</div>
-					<div class="pageNew_goodsBtn02 w180" id="buy" onmousedown="markektingLog();">
+					<div class="pageNew_goodsBtn02 w180" id="buy">
 						<a class="btn_buy">
 							바로구매					
 						</a>
@@ -167,47 +167,49 @@ div {
 		</div>
 	</div>
 	<script>
-		let quantity = $(".quantity_input").val();
-		$(".plus_btn").on("click", function(){
-			$(".quantity_input").val(++quantity);
-		});
-		$(".minus_btn").on("click", function(){
-			if(quantity>1){
-				$(".quantity_input").val(--quantity);		 
-			}
-		});
-		// 서버로 보낼 데이터
-		const form ={
-				//memberId : '${member.member_id}'
-				product_Id : '${product.product_id}',
-				product_quantity : '0'
-		}
-		
-		// 장바구니 추가 버튼
-		$(".btn_cart").on("click", function(e){
-			form.product_quantity = $(".quantity_input").val();
-			form.product_id = ${product.product_id};
-			$.ajax({
-				url: '../basket/addBasket',
-				type: 'POST',
-				data: form,
-				success: function(result){
-					cartAlert(result);
+		$(document).ready(function() {
+			let quantity = $(".quantity_input").val();
+			$(".plus_btn").on("click", function(){
+				$(".quantity_input").val(++quantity);
+			});
+			$(".minus_btn").on("click", function(){
+				if(quantity>1){
+					$(".quantity_input").val(--quantity);		 
 				}
 			});
-		});
-		function cartAlert(result){
-			if(result == '0'){
-				alert("장바구니에 추가를 하지 못하였습니다.");
-			} else if(result == '1'){
-				alert("장바구니에 추가되었습니다.");
-			} else if(result == '2'){
-				alert("장바구니에 이미 추가되어져 있습니다."); 
-			} else if(result == '5'){
-				alert("로그인이 필요합니다.");	
+			// 서버로 보낼 데이터
+			const form ={
+					//memberId : '${member.member_id}'
+					product_Id : '${product.product_id}',
+					product_quantity : '0'
 			}
-		}
 			
+			// 장바구니 추가 버튼
+			$(".btn_cart").on("click", function(e){
+				e.preventDefault();	
+				form.product_quantity = $(".quantity_input").val();
+				form.product_id = ${product.product_id};
+				$.ajax({
+					url: '../basket/addBasket',
+					type: 'POST',
+					data: form,
+					success: function(result){
+						cartAlert(result);
+					}
+				});
+			});
+			function cartAlert(result){
+				if(result == '0'){
+					alert("장바구니에 추가를 하지 못하였습니다.");
+				} else if(result == '1'){
+					alert("장바구니에 추가되었습니다.");
+				} else if(result == '2'){
+					alert("장바구니에 이미 추가되어져 있습니다."); 
+				} else if(result == '5'){
+					alert("로그인이 필요합니다.");	
+				}
+			}
+		});
 	</script>
 </body>
 </html>

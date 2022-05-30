@@ -1,10 +1,15 @@
 package com.bio11.product.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,6 +44,20 @@ public class BasketController {
 		
 		return result + "";
 	}
+	@GetMapping("/getBasketList/{user_id}")
+	public String getBasketList(@PathVariable("user_id") String user_id, Model model) {
+		log.info("getBasketLsit: "+user_id);
+		List<BasketVO> basketList = service.getBasketList(user_id);
+		model.addAttribute("totalPrice",addProductPrice(basketList));
+		model.addAttribute("basketInfo",basketList);
+		return "basket/getBasketList";
+	}
 	
-
+	public int addProductPrice(List<BasketVO> basketList) {
+		int totalPrice = 0;
+		for (BasketVO basket : basketList) {
+			totalPrice += basket.getProduct_price() * basket.getProduct_quantity();
+		}
+		return totalPrice;
+	}
 }

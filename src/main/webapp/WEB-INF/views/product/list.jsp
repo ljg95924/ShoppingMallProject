@@ -9,6 +9,7 @@
 		float: left;
 	}
 </style>
+
 	<div class="row">
 	    <div class="col-lg-12">
 	        <h1 class="page-header">List Page</h1>
@@ -21,7 +22,11 @@
 	    <div class="col-lg-12">
 	        <div class="panel panel-default">
 	            <div class="panel-heading">
-	                게시글 목록
+	                <%-- <a href="/basket/getBasketList/${member.user_id}"> --%>
+	                <%-- 로그인 부분 합치면 수정!! --%>
+	                <a href="../basket/getBasketList/test">
+	                	나의 장바구니
+	                </a>
 	                <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
 	            </div>
 	            <!-- /.panel-heading --> 
@@ -56,7 +61,7 @@
 	                <!-- /.table-responsive -->
 	                
 	                
-						                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
+<!-- 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
 					   <div class="modal-dialog">
 					       <div class="modal-content">
 					           <div class="modal-header">
@@ -70,7 +75,7 @@
 					           </div>
 					      </div>
 					   </div>
-					</div> <!-- /.modal fade -->
+					</div> /.modal fade -->
 	                
 	            </div>
 	            <!-- /.panel-body -->
